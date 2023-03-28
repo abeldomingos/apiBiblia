@@ -11,10 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('testamentos', function (Blueprint $table) {
+        Schema::create('livros', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->unique();
+            $table->integer('posicao');
+            $table->string('nome');
+            $table->string('abreviacao');
+            $table->unsignedBigInteger('testamento_id');
             $table->timestamps();
+
+
+            //Referenciar a chave estrangeira
+            $table->foreign('testamento_id')->references('id')->on('testamentos');
         });
     }
 
@@ -23,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('testamentos');
+        Schema::dropIfExists('livros');
     }
 };
